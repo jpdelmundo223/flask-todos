@@ -1,6 +1,10 @@
-<title>
-Todo App</title>
-
+<html>
+  <head>
+    <title>
+      Todo App
+    </title>
+  </head>
+</html>
 To clone this project
 
 ```
