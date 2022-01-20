@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+    <style>
+        .content-section {
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        .content-section:hover {
+            transition: all .1s ease-in;
+            box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+        }
+        .btn {
+            font-size: 11px;
+            padding: 5 10px;
+        }
+    </style>
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+        {% if message %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show">
+                {{ message }}
+                <button data-bs-dismiss="alert" class="btn-close"></button>
+            </div>
+        {% endif %}
+    {% endfor %}
+    <div class="d-flex align-items-center justify-content-between">
+        <h4 class="text-muted">
+            Todos 
+        </h4>
+        <a class="btn btn-primary btn-sm" href="{{ url_for('todo.add_todo') }}">Add new</a>
+    </div>
+    {% for todo in todos %}
+        <div class="content-section" title="Click to view details">
+            <h6>
+                {{ todo.title }}
+            </h6>
+            {% if todo.status == False %}
+                <span>
+                    Status: In Progress |
+                </span>
+            {% else %} 
+                <span>
+                    Status: Completed |
+                </span>
+            {% endif %}
+            <span>
+                Priority: {{ todo.priority }}
+            </span>
+            <div class="text-muted pb-2">
+                Added on: {{ todo.date_added }}
+            </div>
+            <div class="border-top pt-2">
+                <a class="link text-decoration-none" href="{{ url_for('todo.update_todo', todo_id=todo.id) }}">Update</a>
+                <!-- Button trigger modal -->
+                <a class="link text-decoration-none" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ todo.id }}">Delete</a>
+                <!-- Modal -->
+                <div class="modal fade" id="confirmDeleteModal{{ todo.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        Are you sure you want to delete the seleted todo item?
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="{{ url_for('todo.delete_todo', todo_id=todo.id) }}">Yes</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    {% endfor %}
+{% endblock %}

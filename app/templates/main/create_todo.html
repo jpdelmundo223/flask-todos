@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+    <style>
+        .form-container {
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 6px;
+        }
+    </style>
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+        {% if message %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show">
+                {{ message }}
+                <button data-bs-dismiss="alert" class="btn-close"></button>
+            </div>
+        {% endif %}
+    {% endfor %}
+    <div class="form-container">
+        <form method="POST">
+            {{ form.csrf_token }}
+            <h4 class="border-bottom pb-2">
+                {{ title }}
+            </h4>
+            <div class="form-group mb-3">
+                {{ form.title.label(class="form-label") }}
+                {{ form.title(class="form-control form-control-sm", autofocus="") }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.description.label(class="form-label") }}
+                {{ form.description(class="form-control form-control-sm") }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.status.label(class="form-label") }}
+                {{ form.status(class="form-select form-select-sm") }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.priority.label(class="form-label") }}
+                {{ form.priority(class="form-select form-select-sm") }}
+            </div>
+            <div class="form-group border-top pt-3">
+                {{ form.submit(class="btn btn-primary btn-sm") }}
+                <a class="btn btn-secondary btn-sm" href="{{ url_for('todo.index') }}">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}
