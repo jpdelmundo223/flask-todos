@@ -1,3 +1,6 @@
+<title>
+Todo App</title>
+
 To clone this project
 
 ```
