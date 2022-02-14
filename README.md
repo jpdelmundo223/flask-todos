@@ -17,3 +17,8 @@ A simple todo web app with user athentication and basic CRUD functionalities.
 ```
 pip install requirements.txt
 ```
+
+## Basic Features
+
+- User Login
+- Add, Update, Delete todo
